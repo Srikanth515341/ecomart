@@ -1,0 +1,43 @@
+.authContainer {
+  width: 350px;
+  margin: 80px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fff;
+  text-align: center;
+}
+
+.title {
+  color: #2bb673;
+  margin-bottom: 15px;
+}
+
+form input, form select {
+  width: 100%;
+  margin: 8px 0;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 12px;
+  background-color: #2bb673;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #24985e;
+}
+
+p {
+  margin-top: 12px;
+  font-size: 14px;
+}
