@@ -14,14 +14,18 @@ function Login() {
     e.preventDefault();
     try {
       const data = await authService.login({ email, password });
+
+      // ✅ Pass both user and token to AuthContext
       login(data.user, data.token);
+
+      // Redirect based on role
       if (data.user.role === "seller") {
-        navigate("/dashboard");
+        navigate("/admin");   // admin dashboard
       } else {
-        navigate("/");
+        navigate("/");        // customer home
       }
     } catch (err) {
-      alert("Login failed: " + err.message);
+      alert("Login failed: " + (err.message || "Please try again"));
     }
   };
 

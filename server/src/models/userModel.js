@@ -1,16 +1,52 @@
-const pool = require("../config/db");
+const { DataTypes } = require("sequelize");
+const { sequelize } = require("../config/db");
 
+// Define User model
+const User = sequelize.define(
+  "User",
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    name: {
+      type: DataTypes.STRING(100),
+      allowNull: false,
+    },
+    email: {
+      type: DataTypes.STRING(100),
+      unique: true,
+      allowNull: false,
+    },
+    password: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
+    role: {
+      type: DataTypes.STRING(20),
+      allowNull: false,
+      defaultValue: "customer", // default role
+    },
+  },
+  {
+    tableName: "users",
+    timestamps: true, // ✅ Sequelize expects createdAt & updatedAt
+  }
+);
+
+// Create User
 const createUser = async (name, email, password, role) => {
-  const result = await pool.query(
-    "INSERT INTO users (name, email, password, role) VALUES ($1,$2,$3,$4) RETURNING *",
-    [name, email, password, role]
-  );
-  return result.rows[0];
+  return await User.create({ name, email, password, role });
 };
 
+// Find User by Email
 const findUserByEmail = async (email) => {
-  const result = await pool.query("SELECT * FROM users WHERE email=$1", [email]);
-  return result.rows[0];
+  return await User.findOne({ where: { email } });
 };
 
-module.exports = { createUser, findUserByEmail };
+module.exports = {
+  User,
+  createUser,
+  findUserByEmail,
+};

@@ -1,0 +1,43 @@
+.container {
+  display: flex;
+  min-height: 100vh;
+  background: #f9f9f9;
+}
+
+.sidebar {
+  width: 220px;
+  background: #22a652;
+  color: white;
+  padding: 20px;
+}
+
+.logo {
+  font-size: 1.5rem;
+  margin-bottom: 30px;
+  font-weight: bold;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  margin: 15px 0;
+}
+
+.sidebar a {
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: 0.3s;
+}
+
+.sidebar a:hover {
+  text-decoration: underline;
+}
+
+.main {
+  flex: 1;
+  padding: 30px;
+}
