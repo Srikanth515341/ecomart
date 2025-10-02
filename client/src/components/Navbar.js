@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "../styles/Navbar.module.css";
-import logo from "../assets/home.png"; 
+import logo from "../assets/home.png";
 import { AuthContext } from "../context/AuthContext";
 
 const Navbar = () => {
@@ -27,8 +27,15 @@ const Navbar = () => {
           <Link to="/">Home</Link>
         </li>
         <li>
-          <Link to="/products">All Product</Link>
+          <Link to="/products">All Products</Link>
         </li>
+
+        {/* Orders link only for customers */}
+        {user && user.role === "customer" && (
+          <li>
+            <Link to="/orders">My Orders</Link>
+          </li>
+        )}
       </ul>
 
       {/* Search Bar */}

@@ -3,7 +3,7 @@ import axios from "axios";
 const API_URL = "http://localhost:5000/api/products";
 
 // Add Product
-export const addProduct = async (formData) => {
+const addProduct = async (formData) => {
   try {
     const res = await axios.post(API_URL, formData, {
       headers: {
@@ -18,7 +18,7 @@ export const addProduct = async (formData) => {
 };
 
 // Get All Products
-export const getProducts = async () => {
+const getProducts = async () => {
   try {
     const res = await axios.get(API_URL);
     return res.data;
@@ -28,8 +28,19 @@ export const getProducts = async () => {
   }
 };
 
+// Get Single Product by ID
+const getProductById = async (id) => {
+  try {
+    const res = await axios.get(`${API_URL}/${id}`);
+    return res.data;
+  } catch (error) {
+    console.error("Get Product By ID Error:", error);
+    throw error;
+  }
+};
+
 // Update Product
-export const updateProduct = async (id, formData) => {
+const updateProduct = async (id, formData) => {
   try {
     const res = await axios.put(`${API_URL}/${id}`, formData, {
       headers: {
@@ -44,7 +55,7 @@ export const updateProduct = async (id, formData) => {
 };
 
 // Delete Product
-export const deleteProduct = async (id) => {
+const deleteProduct = async (id) => {
   try {
     const res = await axios.delete(`${API_URL}/${id}`);
     return res.data;
@@ -53,3 +64,14 @@ export const deleteProduct = async (id) => {
     throw error;
   }
 };
+
+// ✅ Default export all functions as a single object
+const productService = {
+  addProduct,
+  getProducts,
+  getProductById,
+  updateProduct,
+  deleteProduct,
+};
+
+export default productService;

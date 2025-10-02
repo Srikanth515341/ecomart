@@ -1,0 +1,71 @@
+.container {
+  display: flex;
+  gap: 40px;
+  padding: 30px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.imageSection img {
+  width: 280px;
+  height: 280px;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.details {
+  flex: 1;
+}
+
+.details h2 {
+  font-size: 26px;
+  margin-bottom: 10px;
+}
+
+.category {
+  font-size: 16px;
+  color: gray;
+  margin-bottom: 10px;
+}
+
+.price {
+  font-size: 22px;
+  font-weight: bold;
+  color: #27ae60;
+  margin-bottom: 10px;
+}
+
+.strike {
+  text-decoration: line-through;
+  font-size: 14px;
+  color: gray;
+  margin-left: 8px;
+}
+
+.description {
+  font-size: 15px;
+  margin-bottom: 20px;
+}
+
+.actions {
+  display: flex;
+  gap: 15px;
+}
+
+.actions button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.actions button:first-child {
+  background: #f1f1f1;
+}
+
+.actions button:last-child {
+  background: #27ae60;
+  color: #fff;
+}

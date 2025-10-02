@@ -1,14 +1,16 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { createUser, findUserByEmail } = require("../models/userModel");
+const User = require("../models/userModel"); // ✅ Import User model directly
 
+// ===============================
 // Register User
+// ===============================
 const register = async (req, res) => {
   try {
     const { name, email, password, role } = req.body;
 
     // Check if user already exists
-    const existing = await findUserByEmail(email);
+    const existing = await User.findOne({ where: { email } });
     if (existing) {
       return res.status(400).json({ message: "User already exists" });
     }
@@ -17,7 +19,12 @@ const register = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Create user in DB
-    const user = await createUser(name, email, hashedPassword, role);
+    const user = await User.create({
+      name,
+      email,
+      password: hashedPassword,
+      role: role || "customer", // ✅ default role if not provided
+    });
 
     return res.status(201).json({
       message: "User registered successfully",
@@ -30,31 +37,42 @@ const register = async (req, res) => {
     });
   } catch (err) {
     console.error("❌ Register Error:", err.message);
-    return res.status(500).json({ message: "Server error during registration", error: err.message });
+    return res.status(500).json({
+      message: "Server error during registration",
+      error: err.message,
+    });
   }
 };
 
+// ===============================
 // Login User
+// ===============================
 const login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
     // Check if user exists
-    const user = await findUserByEmail(email);
+    const user = await User.findOne({ where: { email } });
     if (!user) {
-      return res.status(400).json({ message: "Invalid credentials - user not found" });
+      return res
+        .status(400)
+        .json({ message: "Invalid credentials - user not found" });
     }
 
     // Compare password with hashed password in DB
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(400).json({ message: "Invalid credentials - wrong password" });
+      return res
+        .status(400)
+        .json({ message: "Invalid credentials - wrong password" });
     }
 
     // Verify JWT_SECRET is set
     if (!process.env.JWT_SECRET) {
       console.error("❌ JWT_SECRET is missing in .env");
-      return res.status(500).json({ message: "Server error: JWT secret not configured" });
+      return res
+        .status(500)
+        .json({ message: "Server error: JWT secret not configured" });
     }
 
     // Create JWT token
@@ -76,7 +94,10 @@ const login = async (req, res) => {
     });
   } catch (err) {
     console.error("❌ Login Error:", err.message);
-    return res.status(500).json({ message: "Server error during login", error: err.message });
+    return res.status(500).json({
+      message: "Server error during login",
+      error: err.message,
+    });
   }
 };
 

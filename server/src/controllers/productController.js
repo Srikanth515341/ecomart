@@ -1,7 +1,7 @@
 const Product = require("../models/productModel");
 const path = require("path");
 
-// Add new product
+// ➕ Add new product
 exports.addProduct = async (req, res) => {
   try {
     const { name, description, category, price, offerPrice } = req.body;
@@ -22,23 +22,23 @@ exports.addProduct = async (req, res) => {
 
     res.status(201).json({ message: "Product added successfully", product });
   } catch (error) {
-    console.error(error);
+    console.error("❌ Add Product Error:", error);
     res.status(500).json({ message: "Server Error" });
   }
 };
 
-// Get all products
+// 📦 Get all products
 exports.getProducts = async (req, res) => {
   try {
     const products = await Product.findAll();
     res.status(200).json(products);
   } catch (error) {
-    console.error(error);
+    console.error("❌ Get Products Error:", error);
     res.status(500).json({ message: "Server Error" });
   }
 };
 
-// Update product (inStock or details)
+// ✏️ Update product
 exports.updateProduct = async (req, res) => {
   try {
     const { id } = req.params;
@@ -66,12 +66,12 @@ exports.updateProduct = async (req, res) => {
 
     res.status(200).json({ message: "Product updated successfully", product });
   } catch (error) {
-    console.error(error);
+    console.error("❌ Update Product Error:", error);
     res.status(500).json({ message: "Server Error" });
   }
 };
 
-// Delete product
+// 🗑️ Delete product
 exports.deleteProduct = async (req, res) => {
   try {
     const { id } = req.params;
@@ -79,10 +79,11 @@ exports.deleteProduct = async (req, res) => {
     if (!product) {
       return res.status(404).json({ message: "Product not found" });
     }
+
     await product.destroy();
     res.status(200).json({ message: "Product deleted successfully" });
   } catch (error) {
-    console.error(error);
+    console.error("❌ Delete Product Error:", error);
     res.status(500).json({ message: "Server Error" });
   }
 };

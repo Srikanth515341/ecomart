@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import styles from "../styles/ProductList.module.css";
-import { getProducts, deleteProduct } from "../services/productService";
+import productService from "../services/productService"; // ✅ use default import
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
 
   const fetchProducts = async () => {
     try {
-      const data = await getProducts();
+      const data = await productService.getProducts(); // ✅ fixed
       setProducts(data);
     } catch (error) {
       console.error("Failed to fetch products", error);
@@ -17,7 +17,7 @@ const ProductList = () => {
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this product?")) {
       try {
-        await deleteProduct(id);
+        await productService.deleteProduct(id); // ✅ fixed
         setProducts(products.filter((p) => p.id !== id));
       } catch (error) {
         console.error("Failed to delete product", error);

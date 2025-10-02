@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "../styles/AddProduct.module.css";
-import { addProduct } from "../services/productService";
+import productService from "../services/productService"; // ✅ use default import
 
 const AddProduct = () => {
   const [formData, setFormData] = useState({
@@ -36,7 +36,8 @@ const AddProduct = () => {
         productData.append("image", formData.image);
       }
 
-      await addProduct(productData);
+      // ✅ call through productService
+      await productService.addProduct(productData);
       setMessage("✅ Product added successfully!");
       setFormData({
         name: "",
