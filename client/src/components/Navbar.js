@@ -3,9 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import styles from "../styles/Navbar.module.css";
 import logo from "../assets/home.png";
 import { AuthContext } from "../context/AuthContext";
+import { CartContext } from "../context/CartContext";
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
+  const { cart } = useContext(CartContext);   // ✅ get cart from context
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -47,7 +49,7 @@ const Navbar = () => {
       {/* Cart & Auth */}
       <div className={styles.actions}>
         <Link to="/cart" className={styles.cart}>
-          🛒<span className={styles.cartCount}>0</span>
+          🛒<span className={styles.cartCount}>{cart.length}</span> {/* ✅ dynamic count */}
         </Link>
 
         {user ? (

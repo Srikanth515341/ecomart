@@ -45,7 +45,7 @@ const CategoryProducts = () => {
                   src={
                     product.image
                       ? `http://localhost:5000${product.image}`
-                      : "https://via.placeholder.com/150" // fallback
+                      : "https://via.placeholder.com/150"
                   }
                   alt={product.name}
                 />
